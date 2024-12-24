@@ -28,8 +28,8 @@ void	print_arr(int *arr, int n)
 
 int	main(void)
 {
-	int n = 5;
-	int arr[5] = {2, 1, 4, 0, 3};
+	int n = 6;
+	int arr[6] = {2, 4, 5, 40, 53, 87};
 	push_swap(arr, n);
 	ft_printf("push_swap is done\n");
 

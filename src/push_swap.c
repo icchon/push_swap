@@ -6,6 +6,8 @@ void	print_twlst(t_twlist *lst)
 	t_twlist	*node;
 
 	node = ft_twlsthead(lst);
+	if (node == NULL)
+		ft_printf("stack is null\n");
 	while (node != NULL)
 	{
 		if (node->prev != NULL && node->next != NULL)
@@ -97,7 +99,7 @@ t_op	*exec_sb(t_twlist **a, t_twlist **b)
 	top_b->next = second_b->next;
 	second_b->prev = NULL;
 	if (second_b->next != NULL)
-		second_b->prev = top_b;
+		second_b->next->prev = top_b;
 	second_b->next = top_b;
 	*b = second_b;
 	return (op);
@@ -124,7 +126,7 @@ t_op	*exec_pa(t_twlist **a, t_twlist **b)
 
 	op = (t_op *)malloc(sizeof(t_op));
 	*op = PA;
-	top_b = *b;
+	top_b = ft_twlsthead(*b);
 	if (top_b == NULL)
 	{
 		*op = NONE;
@@ -148,7 +150,7 @@ t_op	*exec_pb(t_twlist **a, t_twlist **b)
 	if (op == NULL)
 		return (NULL);
 	*op = PB;
-	top_a = *a;
+	top_a = ft_twlsthead(*a);
 	if (top_a == NULL)
 	{
 		*op = NONE;
@@ -156,7 +158,8 @@ t_op	*exec_pb(t_twlist **a, t_twlist **b)
 	}
 	second_a = top_a->next;
 	ft_twlstadd_front(b, top_a);
-	second_a->prev = NULL;
+	if (second_a != NULL)
+		second_a->prev = NULL;
 	*a = second_a;
 	return (op);
 }
@@ -311,16 +314,6 @@ void	create_stacks(t_twlist **a, t_twlist **b, int *arr, int n)
 	return ;
 }
 
-t_list	*sort1(t_twlist *a, t_twlist *b)
-{
-	t_list	*ops;
-
-	ops = NULL;
-	(void)a;
-	(void)b;
-	return (ops);
-}
-
 t_list	*sort2(t_twlist *a, t_twlist *b)
 {
 	t_list	*ops;
@@ -365,7 +358,47 @@ t_list	*sort3(t_twlist *a, t_twlist *b, int min)
 		{
 			ft_lstadd_back(&ops, ft_lstnew(exec_ra(&a, &b)));
 			print_stacks(a, b);
-			ft_lstadd_back(&ops, ft_lstnew(exec_ra(&a, &b)));
+			ft_lstadd_back(&ops, ft_lstnew(exec_sa(&a, &b)));
+		}
+	}
+	print_stacks(a, b);
+	return (ops);
+}
+
+t_list	*rev_sort3(t_twlist *a, t_twlist *b, int min)
+{
+	t_list	*ops;
+
+	ops = NULL;
+	if (*(int *)b->content == min + 2)
+	{
+		if (*(int *)b->next->content == min)
+		{
+			ft_lstadd_back(&ops, ft_lstnew(exec_rb(&a, &b)));
+			print_stacks(a, b);
+			ft_lstadd_back(&ops, ft_lstnew(exec_sb(&a, &b)));
+			print_stacks(a, b);
+			ft_lstadd_back(&ops, ft_lstnew(exec_rrb(&a, &b)));
+		}
+	}
+	else if (*(int *)b->content == min + 1)
+	{
+		if (*(int *)b->next->content == min + 2)
+		{
+			ft_lstadd_back(&ops, ft_lstnew(exec_sb(&a, &b)));
+		}
+		else if (*(int *)b->next->content == min)
+			ft_lstadd_back(&ops, ft_lstnew(exec_rrb(&a, &b)));
+	}
+	else if (*(int *)b->content == min)
+	{
+		if (*(int *)b->next->content == min + 2)
+			ft_lstadd_back(&ops, ft_lstnew(exec_rb(&a, &b)));
+		else if (*(int *)b->next->content == min + 1)
+		{
+			ft_lstadd_back(&ops, ft_lstnew(exec_rb(&a, &b)));
+			print_stacks(a, b);
+			ft_lstadd_back(&ops, ft_lstnew(exec_sb(&a, &b)));
 		}
 	}
 	print_stacks(a, b);
@@ -420,16 +453,37 @@ t_list	*sort5(t_twlist *a, t_twlist *b)
 	return (ops);
 }
 
-t_list	*sort_over6(t_twlist *a, t_twlist *b)
+t_list	*sort6(t_twlist *a, t_twlist *b)
 {
 	t_list	*ops;
 	int		i;
 
 	ops = NULL;
-	(void)a;
-	(void)b;
 	i = 0;
+	while (i < 3)
+	{
+		while (!(*(int *)a->content == 0 || *(int *)a->content == 1
+				|| *(int *)a->content == 2))
+		{
+			ft_lstadd_back(&ops, ft_lstnew(exec_ra(&a, &b)));
+			print_stacks(a, b);
+		}
+		ft_lstadd_back(&ops, ft_lstnew(exec_pb(&a, &b)));
+		print_stacks(a, b);
+		i++;
+	}
+	ft_lstadd_back(&ops, sort3(a, b, 3));
+	ft_lstadd_back(&ops, rev_sort3(a, b, 0));
+	while (ft_twlstsize(b) > 0)
+	{
+		ft_lstadd_back(&ops, ft_lstnew(exec_pa(&a, &b)));
+		print_stacks(a, b);
+	}
 	return (ops);
+}
+
+t_list	*sort_over7(t_twlist *a, t_twlist *b)
+{
 }
 
 void	print_op(t_op op)
@@ -509,8 +563,8 @@ t_list	*manage_sort(int *arr, int n)
 	ops = NULL;
 	create_stacks(&a, &b, arr, n);
 	print_stacks(a, b);
-	if (n == 1)
-		ops = sort1(a, b);
+	if (ft_issortedtwlst(a, 0))
+		ft_printf("already sorted\n");
 	else if (n == 2)
 		ops = sort2(a, b);
 	else if (n == 3)
@@ -519,6 +573,8 @@ t_list	*manage_sort(int *arr, int n)
 		ops = sort4(a, b);
 	else if (n == 5)
 		ops = sort5(a, b);
+	else if (n == 6)
+		ops = sort6(a, b);
 	else
 	{
 		test(a, b);
@@ -533,6 +589,7 @@ t_list	*push_swap(int *arr, int n)
 	t_list	*ops;
 
 	ft_compress(arr, n);
+	ft_printf("argments : ");
 	ft_print_arr(arr, n);
 	ops = manage_sort(arr, n);
 	print_ops(ops);
