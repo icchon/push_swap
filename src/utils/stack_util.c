@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   stack_util.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/23 11:13:37 by kaisobe           #+#    #+#             */
-/*   Updated: 2024/12/25 12:27:10 by kaisobe          ###   ########.fr       */
+/*   Created: 2024/12/25 09:00:58 by kaisobe           #+#    #+#             */
+/*   Updated: 2024/12/25 10:35:42 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_arr(int *arr, int n)
+void	create_stacks(t_twlist **a, t_twlist **b, int *arr, int n)
 {
-	int	i;
+	t_twlist	*node;
+	int			i;
 
+	*a = NULL;
+	*b = NULL;
 	i = 0;
 	while (i < n)
 	{
-		ft_printf("%d ", arr[i]);
+		node = ft_twlstnew(&arr[i]);
+		ft_twlstadd_back(a, node);
 		i++;
 	}
-	ft_printf("\n");
 	return ;
 }
 
-int	main(void)
+int	get_val(t_twlist *lst)
 {
-	int n = 6;
-	int arr[6] = {7, 1, 3, 2, 0, 5};
-	push_swap(arr, n);
-	ft_printf("push_swap is done\n");
-
-	return (0);
+	if (lst == NULL)
+		return (-1);
+	return (*(int *)(lst)->content);
 }

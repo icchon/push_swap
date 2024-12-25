@@ -1,37 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ra.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/23 11:13:37 by kaisobe           #+#    #+#             */
-/*   Updated: 2024/12/25 12:27:10 by kaisobe          ###   ########.fr       */
+/*   Created: 2024/12/25 08:33:43 by kaisobe           #+#    #+#             */
+/*   Updated: 2024/12/25 11:34:29 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_arr(int *arr, int n)
+static int	rotate(t_twlist **lst)
 {
-	int	i;
+	t_twlist	*top;
+	t_twlist	*second;
 
-	i = 0;
-	while (i < n)
+	top = ft_twlsthead(*lst);
+	if (ft_twlstsize(top) <= 1)
 	{
-		ft_printf("%d ", arr[i]);
-		i++;
+		return (0);
 	}
-	ft_printf("\n");
-	return ;
+	second = top->next;
+	second->prev = NULL;
+	*lst = second;
+	ft_twlstadd_back(lst, top);
+	return (1);
 }
 
-int	main(void)
+t_op	ra(t_twlist **a, t_twlist **b)
 {
-	int n = 6;
-	int arr[6] = {7, 1, 3, 2, 0, 5};
-	push_swap(arr, n);
-	ft_printf("push_swap is done\n");
-
-	return (0);
+	(void)b;
+	if (!rotate(a))
+	{
+		return (NONE);
+	}
+	return (RA);
 }

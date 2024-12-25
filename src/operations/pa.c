@@ -1,37 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   pa.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/23 11:13:37 by kaisobe           #+#    #+#             */
-/*   Updated: 2024/12/25 12:27:10 by kaisobe          ###   ########.fr       */
+/*   Created: 2024/12/25 08:33:38 by kaisobe           #+#    #+#             */
+/*   Updated: 2024/12/25 12:25:25 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_arr(int *arr, int n)
+static int	push(t_twlist **dest, t_twlist **src)
 {
-	int	i;
+	t_twlist	*top_src;
+	t_twlist	*second_src;
 
-	i = 0;
-	while (i < n)
+	top_src = ft_twlsthead(*src);
+	if (top_src == NULL)
 	{
-		ft_printf("%d ", arr[i]);
-		i++;
+		return (0);
 	}
-	ft_printf("\n");
-	return ;
+	second_src = top_src->next;
+	top_src->prev = NULL;
+	ft_twlstadd_front(dest, top_src);
+	if (second_src != NULL)
+		second_src->prev = NULL;
+	*src = second_src;
+	return (1);
 }
-
-int	main(void)
+t_op	pa(t_twlist **a, t_twlist **b)
 {
-	int n = 6;
-	int arr[6] = {7, 1, 3, 2, 0, 5};
-	push_swap(arr, n);
-	ft_printf("push_swap is done\n");
-
-	return (0);
+	if (!push(a, b))
+	{
+		return (NONE);
+	}
+	return (PA);
 }

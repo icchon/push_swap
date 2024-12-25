@@ -1,9 +1,0 @@
-{
-	"files.associations": {
-		"push_swap.h": "c",
-		"stdio.h": "c",
-		"ft_arr.h": "c",
-		"ft_lst.h": "c",
-		"random": "c"
-	}
-}

@@ -1,37 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   operation_util.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/23 11:13:37 by kaisobe           #+#    #+#             */
-/*   Updated: 2024/12/25 12:27:10 by kaisobe          ###   ########.fr       */
+/*   Created: 2024/12/25 09:03:13 by kaisobe           #+#    #+#             */
+/*   Updated: 2024/12/25 11:43:43 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_arr(int *arr, int n)
+void	add_ops(t_list **ops, int argn, ...)
 {
-	int	i;
+	va_list	ap;
+	int		i;
+	t_op	*op;
+	t_list	*new;
 
 	i = 0;
-	while (i < n)
+	va_start(ap, argn);
+	while (i < argn)
 	{
-		ft_printf("%d ", arr[i]);
+		op = (t_op *)malloc(sizeof(t_op));
+		if (op == NULL)
+		{
+			va_end(ap);
+			return ;
+		}
+		*op = va_arg(ap, t_op);
+		new = ft_lstnew((void *)op);
+		ft_lstadd_back(ops, new);
 		i++;
 	}
-	ft_printf("\n");
+	va_end(ap);
 	return ;
-}
-
-int	main(void)
-{
-	int n = 6;
-	int arr[6] = {7, 1, 3, 2, 0, 5};
-	push_swap(arr, n);
-	ft_printf("push_swap is done\n");
-
-	return (0);
 }
