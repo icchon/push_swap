@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 08:49:41 by kaisobe           #+#    #+#             */
-/*   Updated: 2024/12/25 16:16:12 by kaisobe          ###   ########.fr       */
+/*   Updated: 2024/12/25 18:12:55 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_list	*solve(int *arr, int n)
 	if (n < 7)
 		ops = solve_special(&a, &b, n);
 	else
-		ops = solve_general(&a, &b);
+		ops = solve_general(&a, &b, n);
 	print_stacks(a, b);
 	free_stacks(a, b);
 	return (ops);

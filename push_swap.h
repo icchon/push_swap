@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 11:13:57 by kaisobe           #+#    #+#             */
-/*   Updated: 2024/12/25 16:33:01 by kaisobe          ###   ########.fr       */
+/*   Updated: 2024/12/25 18:14:11 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_op	rrb(t_twlist **a, t_twlist **b);
 t_op	rrr(t_twlist **a, t_twlist **b);
 
 t_list	*solve(int *arr, int n);
-t_list	*solve_general(t_twlist **a, t_twlist **b);
+t_list	*solve_general(t_twlist **a, t_twlist **b, int n);
 
 t_list	*solve_2(t_twlist **a, t_twlist **b);
 t_list	*solve_3(t_twlist **a, t_twlist **b);
