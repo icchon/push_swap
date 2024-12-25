@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 08:33:38 by kaisobe           #+#    #+#             */
-/*   Updated: 2024/12/25 12:25:25 by kaisobe          ###   ########.fr       */
+/*   Updated: 2024/12/25 12:45:14 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static int	push(t_twlist **dest, t_twlist **src)
 	*src = second_src;
 	return (1);
 }
+
 t_op	pa(t_twlist **a, t_twlist **b)
 {
 	if (!push(a, b))

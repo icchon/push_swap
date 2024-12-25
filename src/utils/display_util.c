@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 08:43:08 by kaisobe           #+#    #+#             */
-/*   Updated: 2024/12/25 12:25:31 by kaisobe          ###   ########.fr       */
+/*   Updated: 2024/12/25 13:21:16 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void	print_op(t_op op)
 {
 	if (op == NONE)
-	{
 		ft_printf("none\n");
-	}
 	else if (op == SA)
 		ft_printf("sa\n");
 	else if (op == SB)
@@ -41,9 +39,7 @@ void	print_op(t_op op)
 	else if (op == RRR)
 		ft_printf("rrr\n");
 	else
-	{
 		ft_printf("op is invalid : %d\n", op);
-	}
 	return ;
 }
 

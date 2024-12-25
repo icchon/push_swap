@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 11:13:57 by kaisobe           #+#    #+#             */
-/*   Updated: 2024/12/25 10:35:48 by kaisobe          ###   ########.fr       */
+/*   Updated: 2024/12/25 16:15:09 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ t_list	*sort_3(t_twlist **a, t_twlist **b, t_ab ab, int min);
 t_list	*rev_sort_3(t_twlist **a, t_twlist **b, t_ab ab, int min);
 void	create_stacks(t_twlist **a, t_twlist **b, int *arr, int n);
 int		get_val(t_twlist *lst);
+void	free_stacks(t_twlist *a, t_twlist *b);
 
 #endif

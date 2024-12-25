@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 08:28:40 by kaisobe           #+#    #+#             */
-/*   Updated: 2024/12/25 12:24:23 by kaisobe          ###   ########.fr       */
+/*   Updated: 2024/12/25 13:07:16 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ t_list	*solve_3(t_twlist **a, t_twlist **b)
 
 t_list	*solve_4(t_twlist **a, t_twlist **b)
 {
+	static	t_op (*f[N_AB][N_FUNC])(t_twlist **a, t_twlist **b) = {{sa, pa,
+		ra}, {sb, pb, rb}};
 	t_list	*ops;
 	t_list	*d;
-	t_op	(*f[N_AB][N_FUNC])(t_twlist * *a, t_twlist * *b);
 
-	init_f(f);
 	ops = NULL;
 	while (get_val(*a) != 0)
 	{
@@ -54,10 +54,10 @@ t_list	*solve_4(t_twlist **a, t_twlist **b)
 t_list	*solve_5(t_twlist **a, t_twlist **b)
 {
 	t_list	*ops;
-	t_op	(*f[N_AB][N_FUNC])(t_twlist * *a, t_twlist * *b);
+	static	t_op (*f[N_AB][N_FUNC])(t_twlist **a, t_twlist **b) = {{sa, pa,
+		ra}, {sb, pb, rb}};
 	int		i;
 
-	init_f(f);
 	ops = NULL;
 	i = 0;
 	while (i < 2)
@@ -76,11 +76,11 @@ t_list	*solve_5(t_twlist **a, t_twlist **b)
 
 t_list	*solve_6(t_twlist **a, t_twlist **b)
 {
-	t_op	(*f[N_AB][N_FUNC])(t_twlist * *a, t_twlist * *b);
+	static	t_op (*f[N_AB][N_FUNC])(t_twlist **a, t_twlist **b) = {{sa, pa,
+		ra}, {sb, pb, rb}};
 	int		i;
 	t_list	*ops;
 
-	init_f(f);
 	ops = NULL;
 	i = 0;
 	while (i < 3)

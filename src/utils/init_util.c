@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 09:00:05 by kaisobe           #+#    #+#             */
-/*   Updated: 2024/12/25 10:21:51 by kaisobe          ###   ########.fr       */
+/*   Updated: 2024/12/25 13:21:44 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 void	init_f(t_op (*f[N_AB][N_FUNC])(t_twlist **a, t_twlist **b))
 {
+	static int	is_initialized = 0;
+
+	if (is_initialized)
+		return ;
 	f[A][SWAP] = sa;
 	f[A][PUSH] = pa;
 	f[A][ROTATE] = ra;
@@ -22,6 +26,7 @@ void	init_f(t_op (*f[N_AB][N_FUNC])(t_twlist **a, t_twlist **b))
 	f[B][PUSH] = pb;
 	f[B][ROTATE] = rb;
 	f[B][REV_ROTATE] = rrb;
+	is_initialized = 1;
 	return ;
 }
 
