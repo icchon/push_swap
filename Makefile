@@ -12,7 +12,10 @@ SOLVER_SRCS := $(addprefix solvers/,$(SOLVER_FILES))
 UTIL_FILES := display_util.c init_util.c operation_util.c optimize.c sort.c stack_util.c
 UTIL_SRCS := $(addprefix utils/,$(UTIL_FILES)) 
 
-FILES = $(addprefix src/,$(OP_SRCS)) $(addprefix src/,$(SOLVER_SRCS)) $(addprefix src/,$(UTIL_SRCS)) src/push_swap.c 
+VALID_FILES := parse.c 
+VALID_SRCS := $(addprefix utils/,$(VALID_FILES)) 
+
+FILES = $(addprefix src/,$(OP_SRCS)) $(addprefix src/,$(SOLVER_SRCS)) $(addprefix src/,$(UTIL_SRCS)) $(VALID_SRCS) src/push_swap.c 
 
 SRCS := $(FILES) main.c 
 SUBDIR = libft
