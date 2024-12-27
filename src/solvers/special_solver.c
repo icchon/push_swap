@@ -17,9 +17,7 @@ t_list	*solve_2(t_twlist **a, t_twlist **b)
 	t_list	*ops;
 
 	ops = NULL;
-	print_stacks(*a, *b);
-	ft_lstadd_back(&ops, sort_2(a, b, A));
-	print_stacks(*a, *b);
+	lstadd(&ops, sort_2(a, b, A));
 	return (ops);
 }
 
@@ -28,71 +26,73 @@ t_list	*solve_3(t_twlist **a, t_twlist **b)
 	t_list	*ops;
 
 	ops = NULL;
-	ft_lstadd_back(&ops, sort_3(a, b, A, 0));
+	lstadd(&ops, sort_3(a, b, A, 0));
 	return (ops);
 }
 
 t_list	*solve_4(t_twlist **a, t_twlist **b)
 {
-	static	t_op (*f[N_AB][N_FUNC])(t_twlist **a, t_twlist **b) = {{sa, pa,
-		ra}, {sb, pb, rb}};
-	t_list	*ops;
-	t_list	*d;
+	static t_opfunc	f[N_AB][N_FUNC] = {{sa, pa, ra, rra}, {sb, pb, rb, rrb}};
+	t_list			*ops;
 
 	ops = NULL;
-	while (get_val(*a) != 0)
+	while (value(*a) != 0)
 	{
-		add_ops(&ops, 1, f[A][ROTATE](a, b));
+		lstadd(&ops, pipeop(a, b, 1, f[A][ROTATE]));
 	}
-	add_ops(&ops, 1, f[B][PUSH](a, b));
-	d = sort_3(a, b, A, 1);
-	ft_lstadd_back(&ops, d);
-	add_ops(&ops, 1, f[A][PUSH](a, b));
+	lstadd(&ops, pipeop(a, b, 1, f[B][PUSH]));
+	lstadd(&ops, sort_3(a, b, A, 1));
+	lstadd(&ops, pipeop(a, b, 1, f[A][PUSH]));
 	return (ops);
 }
 
 t_list	*solve_5(t_twlist **a, t_twlist **b)
 {
-	t_list	*ops;
-	static	t_op (*f[N_AB][N_FUNC])(t_twlist **a, t_twlist **b) = {{sa, pa,
-		ra}, {sb, pb, rb}};
-	int		i;
+	t_list			*ops;
+	int				i;
+	static t_opfunc	f[N_AB][N_FUNC] = {{sa, pa, ra, rra}, {sb, pb, rb, rrb}};
 
 	ops = NULL;
 	i = 0;
 	while (i < 2)
 	{
-		while (!(ft_ismatch(get_val(*a), 2, 0, 1)))
-			add_ops(&ops, 1, f[A][ROTATE](a, b));
-		add_ops(&ops, 1, f[B][PUSH](a, b));
+		while (!(ft_ismatch(value(*a), 2, 0, 1)))
+			lstadd(&ops, pipeop(a, b, 1, f[A][ROTATE]));
+		lstadd(&ops, pipeop(a, b, 1, f[B][PUSH]));
 		i++;
 	}
-	ft_lstadd_back(&ops, sort_3(a, b, A, 2));
-	if (ft_issortedtwlst(*b, 0))
-		add_ops(&ops, 1, f[B][SWAP](a, b));
-	add_ops(&ops, 2, f[A][PUSH](a, b), f[A][PUSH](a, b));
+	lstadd(&ops, sort_3(a, b, A, 2));
+	if (issorted(*b, 0))
+		lstadd(&ops, pipeop(a, b, 1, f[B][SWAP]));
+	lstadd(&ops, pipeop(a, b, 2, f[A][PUSH], f[A][PUSH]));
 	return (ops);
 }
 
 t_list	*solve_6(t_twlist **a, t_twlist **b)
 {
-	static	t_op (*f[N_AB][N_FUNC])(t_twlist **a, t_twlist **b) = {{sa, pa,
-		ra}, {sb, pb, rb}};
-	int		i;
-	t_list	*ops;
+	int				i;
+	t_list			*ops;
+	static t_opfunc	f[N_AB][N_FUNC] = {{sa, pa, ra, rra}, {sb, pb, rb, rrb}};
+	int				next;
 
 	ops = NULL;
 	i = 0;
-	while (i < 3)
+	next = 2;
+	while (i++ < 3)
 	{
-		while (!(ft_ismatch(get_val(*a), 3, 0, 1, 2)))
-			add_ops(&ops, 1, f[A][ROTATE](a, b));
-		add_ops(&ops, 1, f[B][PUSH](a, b));
-		i++;
+		while (!(ft_ismatch(value(*a), 3, 0, 1, 2)))
+			lstadd(&ops, pipeop(a, b, 1, f[A][ROTATE]));
+		lstadd(&ops, pipeop(a, b, 1, f[B][PUSH]));
 	}
-	ft_lstadd_back(&ops, sort_3(a, b, A, 3));
-	ft_lstadd_back(&ops, rev_sort_3(a, b, B, 0));
-	while (ft_twlstsize(*b) > 0)
-		add_ops(&ops, 1, f[A][PUSH](a, b));
+	lstadd(&ops, sort_3(a, b, A, 3));
+	while (twlstsize(*b) > 0)
+	{
+		while (value(get(*b, 0)) == next)
+			lstadd((next--, &ops), pipeop(a, b, 1, f[A][PUSH]));
+		if (value(get(*b, -1)) == next)
+			lstadd(&ops, pipeop(a, b, 1, f[B][REV_ROTATE]));
+		if (value(get(*b, 1)) == next)
+			lstadd(&ops, pipeop(a, b, 1, f[B][SWAP]));
+	}
 	return (ops);
 }

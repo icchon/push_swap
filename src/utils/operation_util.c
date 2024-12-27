@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	add_ops(t_list **ops, int argn, ...)
+void	opsadd(t_list **ops, int argn, ...)
 {
 	va_list	ap;
 	int		i;
@@ -31,9 +31,31 @@ void	add_ops(t_list **ops, int argn, ...)
 		}
 		*op = va_arg(ap, t_op);
 		new = ft_lstnew((void *)op);
-		ft_lstadd_back(ops, new);
+		lstadd(ops, new);
 		i++;
 	}
 	va_end(ap);
 	return ;
+}
+
+t_list	*pipeop(t_twlist **a, t_twlist **b, int argn, ...)
+{
+	va_list		ap;
+	t_list		*ops;
+	t_opfunc	f;
+	t_op		op;
+	int			i;
+
+	va_start(ap, argn);
+	i = 0;
+	ops = NULL;
+	while (i < argn)
+	{
+		f = va_arg(ap, t_opfunc);
+		op = f(a, b);
+		opsadd(&ops, 1, op);
+		i++;
+	}
+	va_end(ap);
+	return (ops);
 }

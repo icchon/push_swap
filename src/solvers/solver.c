@@ -17,8 +17,10 @@ static t_list	*solve_special(t_twlist **a, t_twlist **b, int n)
 	t_list	*ops;
 
 	ops = NULL;
-	if (ft_issortedtwlst(*a, 0))
-		ft_printf("already sorted\n");
+	if (issorted(*a, 0))
+	{
+		return (ops);
+	}
 	else if (n == 2)
 		ops = solve_2(a, b);
 	else if (n == 3)
@@ -36,6 +38,15 @@ static t_list	*solve_special(t_twlist **a, t_twlist **b, int n)
 	return (ops);
 }
 
+static t_list	*solve_general(t_twlist **a, t_twlist **b, int n)
+{
+	t_list	*ops;
+
+	ops = NULL;
+	lstadd(&ops, golgo_invitation_sort(a, b, n));
+	return (ops);
+}
+
 t_list	*solve(int *arr, int n)
 {
 	t_twlist	*a;
@@ -44,12 +55,10 @@ t_list	*solve(int *arr, int n)
 
 	ops = NULL;
 	create_stacks(&a, &b, arr, n);
-	print_stacks(a, b);
 	if (n < 7)
 		ops = solve_special(&a, &b, n);
 	else
 		ops = solve_general(&a, &b, n);
-	print_stacks(a, b);
 	free_stacks(a, b);
 	return (ops);
 }

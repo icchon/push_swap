@@ -29,10 +29,10 @@ void	create_stacks(t_twlist **a, t_twlist **b, int *arr, int n)
 	return ;
 }
 
-int	get_val(t_twlist *lst)
+int	value(t_twlist *lst)
 {
 	if (lst == NULL)
-		return (-1);
+		return (INT_MIN);
 	return (*(int *)(lst)->content);
 }
 
@@ -56,4 +56,22 @@ void	free_stacks(t_twlist *a, t_twlist *b)
 		node = next;
 	}
 	return ;
+}
+
+int	twlst_any(t_twlist *lst, int start, int end)
+{
+	int			content;
+	t_twlist	*node;
+
+	node = twlsthead(lst);
+	while (node)
+	{
+		content = value(node);
+		if (start <= content && content <= end)
+		{
+			return (1);
+		}
+		node = node->next;
+	}
+	return (0);
 }

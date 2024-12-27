@@ -17,14 +17,14 @@ static int	push(t_twlist **dest, t_twlist **src)
 	t_twlist	*top_src;
 	t_twlist	*second_src;
 
-	top_src = ft_twlsthead(*src);
+	top_src = twlsthead(*src);
 	if (top_src == NULL)
 	{
 		return (0);
 	}
 	second_src = top_src->next;
 	top_src->prev = NULL;
-	ft_twlstadd_front(dest, top_src);
+	twlstadd_front(dest, top_src);
 	if (second_src != NULL)
 		second_src->prev = NULL;
 	*src = second_src;

@@ -17,12 +17,12 @@ static int	reverse_rotate(t_twlist **lst)
 	t_twlist	*bottom;
 	t_twlist	*top;
 
-	if (ft_twlstsize(*lst) <= 1)
+	if (twlstsize(*lst) <= 1)
 	{
 		return (0);
 	}
-	top = ft_twlsthead(*lst);
-	bottom = ft_twlstlast(*lst);
+	top = twlsthead(*lst);
+	bottom = twlstlast(*lst);
 	if (bottom->prev != NULL)
 	{
 		bottom->prev->next = NULL;
@@ -30,7 +30,7 @@ static int	reverse_rotate(t_twlist **lst)
 	top->prev = bottom;
 	bottom->next = top;
 	bottom->prev = NULL;
-	ft_twlstadd_front(lst, bottom);
+	twlstadd_front(lst, bottom);
 	return (1);
 }
 

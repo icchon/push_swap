@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_util.c                                        :+:      :+:    :+:   */
+/*   twlst2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: icchon <icchon@student.42.fr>              #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/25 09:00:05 by kaisobe           #+#    #+#             */
-/*   Updated: 2024/12/25 13:21:44 by kaisobe          ###   ########.fr       */
+/*   Created: 2024-12-27 06:01:06 by icchon            #+#    #+#             */
+/*   Updated: 2024-12-27 06:01:06 by icchon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	init_stacks(t_twlist **stacks[], t_twlist **a, t_twlist **b)
+int	issorted(t_twlist *lst, int reversed)
 {
-	stacks[A] = a;
-	stacks[B] = b;
-	return ;
+	return (ft_issortedtwlst(lst, reversed));
+}
+
+t_twlist	*get(t_twlist *lst, int index)
+{
+	return (ft_twlstget(lst, index));
 }

@@ -49,10 +49,8 @@ static int	is_valid_arg(char **arg)
 
 int	*parse_mono_arg(char **arg)
 {
-	int	n;
 	int	*arr;
 
-	n = ft_strslen((const char **)arg);
 	if (arg == NULL)
 		return (NULL);
 	if (!is_valid_arg(arg))
@@ -65,10 +63,8 @@ int	*parse_mono_arg(char **arg)
 
 int	*parse_mul_arg(char **arg)
 {
-	int	n;
 	int	*arr;
 
-	n = ft_strslen((const char **)arg);
 	if (!is_valid_arg(arg))
 		return (0);
 	arr = strstoarr(arg);

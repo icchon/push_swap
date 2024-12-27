@@ -17,11 +17,11 @@ static int	swap(t_twlist **lst)
 	t_twlist	*top;
 	t_twlist	*second;
 
-	if (ft_twlstsize(*lst) <= 1)
+	if (twlstsize(*lst) <= 1)
 	{
 		return (0);
 	}
-	top = ft_twlsthead(*lst);
+	top = twlsthead(*lst);
 	second = top->next;
 	top->prev = second;
 	top->next = second->next;

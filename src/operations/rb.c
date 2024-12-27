@@ -17,15 +17,15 @@ static int	rotate(t_twlist **lst)
 	t_twlist	*top;
 	t_twlist	*second;
 
-	top = ft_twlsthead(*lst);
-	if (ft_twlstsize(*lst) <= 1)
+	top = twlsthead(*lst);
+	if (twlstsize(*lst) <= 1)
 	{
 		return (0);
 	}
 	second = top->next;
 	second->prev = NULL;
 	*lst = second;
-	ft_twlstadd_back(lst, top);
+	twlstadd(lst, top);
 	return (1);
 }
 

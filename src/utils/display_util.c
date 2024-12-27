@@ -12,11 +12,9 @@
 
 #include "push_swap.h"
 
-void	print_op(t_op op)
+static void	print_op(t_op op)
 {
-	if (op == NONE)
-		ft_printf("none\n");
-	else if (op == SA)
+	if (op == SA)
 		ft_printf("sa\n");
 	else if (op == SB)
 		ft_printf("sb\n");
@@ -38,19 +36,72 @@ void	print_op(t_op op)
 		ft_printf("rrb\n");
 	else if (op == RRR)
 		ft_printf("rrr\n");
-	else
-		ft_printf("op is invalid : %d\n", op);
-	return ;
 }
+
+// static void	print(t_twlist *lst)
+// {
+// 	t_twlist	*node;
+// 	int			i;
+// 	int			*arr;
+// 	int			n;
+// 	const int	w = 25;
+
+// 	n = twlstsize(lst);
+// 	arr = (int *)malloc(sizeof(int) * n);
+// 	if (arr == NULL)
+// 		return ;
+// 	i = 0;
+// 	node = lst;
+// 	if (node == NULL)
+// 		ft_printf("stack is null\n");
+// 	while (node != NULL)
+// 	{
+// 		arr[i] = value(node);
+// 		node = node->next;
+// 		i++;
+// 	}
+// 	i = 0;
+// 	while (i < n)
+// 	{
+// 		if (i % w == 0)
+// 		{
+// 			ft_printf("|");
+// 		}
+// 		ft_printf("%2d ", arr[i]);
+// 		i++;
+// 		if (i % w == 0)
+// 		{
+// 			ft_printf("|\n");
+// 		}
+// 	}
+// 	if (i % w != 0)
+// 	{
+// 		ft_printf("|");
+// 	}
+// 	ft_printf("\n");
+// 	return ;
+// }
+
+// void	print_stacks(t_twlist *a, t_twlist *b)
+// {
+// 	return ;
+// 	ft_printf("\n-----------------[a]-----------------\n");
+// 	print(a);
+// 	ft_printf("-----------------[b]--------------------\n");
+// 	print(b);
+// 	ft_printf("---------------------------------------\n\n");
+// 	return ;
+// }
 
 void	print_ops(t_list *ops)
 {
 	t_list	*node;
 	t_op	op;
+	int		cnt;
 
+	cnt = 0;
 	if (ops == NULL)
 	{
-		ft_printf("ops is null\n");
 		return ;
 	}
 	node = ops;
@@ -58,55 +109,12 @@ void	print_ops(t_list *ops)
 	{
 		op = *(t_op *)node->content;
 		print_op(op);
+		cnt++;
 		node = node->next;
 	}
 	return ;
-}
-
-void	print_twlst(t_twlist *lst)
-{
-	t_twlist	*node;
-
-	node = lst;
-	if (node == NULL)
-		ft_printf("stack is null\n");
-	while (node != NULL)
-	{
-		if (node->prev != NULL && node->next != NULL)
-		{
-			ft_printf("prev : %4d, contnt : %d, next : %4d\n",
-				*(int *)(node->prev->content), *(int *)node->content,
-				*(int *)node->next->content);
-		}
-		else
-		{
-			if (node->next != NULL)
-			{
-				ft_printf("prev : NULL, contnt : %d, next : %4d\n",
-					*(int *)node->content, *(int *)node->next->content);
-			}
-			else if (node->prev != NULL)
-			{
-				ft_printf("prev : %4d, contnt : %d, next : NULL\n",
-					*(int *)node->prev->content, *(int *)node->content);
-			}
-			else
-			{
-				ft_printf("prev : NULL, contnt : %d, next : NULL\n",
-					*(int *)node->content);
-			}
-		}
-		node = node->next;
-	}
-	return ;
-}
-
-void	print_stacks(t_twlist *a, t_twlist *b)
-{
-	ft_printf("[a]\n");
-	print_twlst(a);
-	ft_printf("[b]\n");
-	print_twlst(b);
-	ft_printf("-----------------------------------------------\n");
+	ft_printf("-------------------------\n");
+	ft_printf("|     command :    %d     |\n", cnt);
+	ft_printf("-------------------------\n");
 	return ;
 }

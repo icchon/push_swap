@@ -12,39 +12,62 @@
 
 #include "push_swap.h"
 
-int	main(int argc, char *argv[])
+static void	free_strs(char **strs)
 {
-	int		n;
-	int		*arr;
+	int	i;
+
+	i = 0;
+	while (strs[i] != NULL)
+	{
+		free(strs[i]);
+		i++;
+	}
+	free(strs);
+	return ;
+}
+
+static int	set_arr(int argc, char *argv[], int **arr)
+{
 	char	**arg;
+	int		n;
 
 	n = 0;
-	if (argc < 2)
-		return (0);
 	if (argc == 2)
 	{
 		arg = ft_split(argv[1], ' ');
 		if (arg == NULL)
-		{
-			ft_printf("Error\n");
-			return (0);
-		}
+			return (-1);
 		n = ft_strslen((const char **)arg);
-		arr = parse_mono_arg(arg);
-		free(arg);
+		*arr = parse_mono_arg(arg);
+		if (*arr == NULL)
+			return (-1);
+		free_strs(arg);
 	}
 	else
 	{
 		arg = &argv[1];
 		n = ft_strslen((const char **)arg);
-		arr = parse_mul_arg(arg);
+		*arr = parse_mul_arg(arg);
+		if (*arr == NULL)
+			return (-1);
 	}
-	if (arr == NULL)
-	{
-		ft_printf("Error\n");
+	return (n);
+}
+
+int	main(int argc, char *argv[])
+{
+	int	n;
+	int	*arr;
+
+	n = 0;
+	if (argc < 2)
 		return (0);
-	}
+	arr = NULL;
+	n = set_arr(argc, argv, &arr);
+	if (arr == NULL || n < 0)
+		return (ft_dprintf(2, "Error\n"), 0);
+	if (ft_compress(arr, n) != n)
+		return (ft_dprintf(2, "Error\n"), free(arr), 0);
 	push_swap(arr, n);
-	free(arr);
-	return (0);
+	return (free(arr), 0);
 }

@@ -14,67 +14,62 @@
 
 t_list	*sort_2(t_twlist **a, t_twlist **b, t_ab ab)
 {
-	t_op		op;
-	t_twlist	*lst;
-	static	t_op (*f[N_AB][N_FUNC])(t_twlist **a, t_twlist **b) = {{sa, pa,
-		ra}, {sb, pb, rb}};
-	t_list		*ops;
+	t_twlist		*lst;
+	static t_opfunc	f[N_AB][N_FUNC] = {{sa, pa, ra, rra}, {sb, pb, rb, rrb}};
+	t_list			*ops;
 
 	ops = NULL;
 	lst = *a;
 	if (ab == B)
 		lst = *b;
-	if (get_val(lst) <= get_val(lst->next))
+	if (value(lst) <= value(lst->next))
 		return (ops);
-	op = f[ab][SWAP](a, b);
-	add_ops(&ops, 1, op);
+	lstadd(&ops, pipeop(a, b, 1, f[ab][SWAP]));
 	return (ops);
 }
 
 t_list	*sort_3(t_twlist **a, t_twlist **b, t_ab ab, int min)
 {
-	static	t_op (*f[N_AB][N_FUNC])(t_twlist **a, t_twlist **b) = {{sa, pa,
-		ra}, {sb, pb, rb}};
-	t_list	*ops;
-	t_twlist	*lst;
+	static t_opfunc	f[N_AB][N_FUNC] = {{sa, pa, ra, rra}, {sb, pb, rb, rrb}};
+	t_list			*ops;
+	t_twlist		*lst;
 
 	ops = NULL;
 	lst = *a;
 	if (ab == B)
 		lst = *b;
-	if (get_val(lst) == min && get_val(lst->next) == min + 2)
-		add_ops(&ops, 2, f[ab][REV_ROTATE](a, b), f[ab][SWAP](a, b));
-	else if (get_val(lst) == min + 1 && get_val((lst)->next) == min)
-		add_ops(&ops, 1, f[ab][SWAP](a, b));
-	else if (get_val(lst) == min + 1 && get_val(lst->next) == min + 2)
-		add_ops(&ops, 1, f[ab][REV_ROTATE](a, b));
-	else if (get_val(lst) == min + 2 && get_val(lst->next) == min)
-		add_ops(&ops, 1, f[ab][ROTATE](a, b));
-	else if (get_val(lst) == min + 2 && get_val(lst->next) == min + 1)
-		add_ops(&ops, 2, f[ab][ROTATE](a, b), f[ab][SWAP](a, b));
+	if (value(lst) == min && value(lst->next) == min + 2)
+		lstadd(&ops, pipeop(a, b, 2, f[ab][REV_ROTATE], f[ab][SWAP]));
+	else if (value(lst) == min + 1 && value((lst)->next) == min)
+		lstadd(&ops, pipeop(a, b, 1, f[ab][SWAP]));
+	else if (value(lst) == min + 1 && value(lst->next) == min + 2)
+		lstadd(&ops, pipeop(a, b, 1, f[ab][REV_ROTATE]));
+	else if (value(lst) == min + 2 && value(lst->next) == min)
+		lstadd(&ops, pipeop(a, b, 1, f[ab][ROTATE]));
+	else if (value(lst) == min + 2 && value(lst->next) == min + 1)
+		lstadd(&ops, pipeop(a, b, 2, f[ab][ROTATE], f[ab][SWAP]));
 	return (ops);
 }
 
 t_list	*rev_sort_3(t_twlist **a, t_twlist **b, t_ab ab, int min)
 {
-	t_list		*ops;
-	t_twlist	*lst;
-	static	t_op (*f[N_AB][N_FUNC])(t_twlist **a, t_twlist **b) = {{sa, pa,
-		ra}, {sb, pb, rb}};
+	t_list			*ops;
+	t_twlist		*lst;
+	static t_opfunc	f[N_AB][N_FUNC] = {{sa, pa, ra, rra}, {sb, pb, rb, rrb}};
 
 	ops = NULL;
 	lst = *a;
 	if (ab == B)
 		lst = *b;
-	if (get_val(lst) == min + 2 && get_val(lst->next) == min)
-		add_ops(&ops, 2, f[ab][REV_ROTATE](a, b), f[ab][SWAP](a, b));
-	else if (get_val(lst) == min + 1 && get_val(lst->next) == min + 2)
-		add_ops(&ops, 1, f[ab][SWAP](a, b));
-	else if (get_val(lst) == min + 1 && get_val(lst->next) == min)
-		add_ops(&ops, 1, f[ab][REV_ROTATE](a, b));
-	else if (get_val(lst) == min && get_val(lst->next) == min + 2)
-		add_ops(&ops, 1, f[ab][ROTATE](a, b));
-	else if (get_val(lst) == min && get_val(lst->next) == min + 1)
-		add_ops(&ops, 2, f[ab][ROTATE](a, b), f[ab][SWAP](a, b));
+	if (value(lst) == min + 2 && value(lst->next) == min)
+		lstadd(&ops, pipeop(a, b, 2, f[ab][REV_ROTATE], f[ab][SWAP]));
+	else if (value(lst) == min + 1 && value(lst->next) == min + 2)
+		lstadd(&ops, pipeop(a, b, 1, f[ab][SWAP]));
+	else if (value(lst) == min + 1 && value(lst->next) == min)
+		lstadd(&ops, pipeop(a, b, 1, f[ab][REV_ROTATE]));
+	else if (value(lst) == min && value(lst->next) == min + 2)
+		lstadd(&ops, pipeop(a, b, 1, f[ab][ROTATE]));
+	else if (value(lst) == min && value(lst->next) == min + 1)
+		lstadd(&ops, pipeop(a, b, 2, f[ab][ROTATE], f[ab][SWAP]));
 	return (ops);
 }
