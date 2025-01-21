@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 11:13:37 by kaisobe           #+#    #+#             */
-/*   Updated: 2024/12/25 16:33:09 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/01/22 06:17:58 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ static int	set_arr(int argc, char *argv[], int **arr)
 			return (-1);
 		n = ft_strslen((const char **)arg);
 		*arr = parse_mono_arg(arg);
+		free_strs(arg);
 		if (*arr == NULL)
 			return (-1);
-		free_strs(arg);
 	}
 	else
 	{
