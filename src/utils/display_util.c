@@ -6,13 +6,13 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 08:43:08 by kaisobe           #+#    #+#             */
-/*   Updated: 2024/12/25 13:21:16 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/01/24 09:11:29 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	print_op(t_op op)
+void	print_op(t_op op)
 {
 	if (op == SA)
 		ft_printf("sa\n");

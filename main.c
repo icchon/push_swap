@@ -6,25 +6,11 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 11:13:37 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/22 06:17:58 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/01/24 09:23:07 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static void	free_strs(char **strs)
-{
-	int	i;
-
-	i = 0;
-	while (strs[i] != NULL)
-	{
-		free(strs[i]);
-		i++;
-	}
-	free(strs);
-	return ;
-}
 
 static int	set_arr(int argc, char *argv[], int **arr)
 {

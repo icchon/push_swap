@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 11:13:57 by kaisobe           #+#    #+#             */
-/*   Updated: 2024/12/25 18:14:11 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/01/24 09:18:36 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,12 @@ void			create_stacks(t_twlist **a, t_twlist **b, int *arr, int n);
 int				value(t_twlist *lst);
 void			free_stacks(t_twlist *a, t_twlist *b);
 
+t_opfunc		to_func(t_op op);
+t_op			to_op(char *s);
 int				*parse_mono_arg(char **arg);
 int				*parse_mul_arg(char **arg);
 t_list			*pipeop(t_twlist **a, t_twlist **b, int argn, ...);
-
+void			print_op(t_op op);
 void			lstadd(t_list **lst, t_list *new);
 void			lstadd_front(t_list **lst, t_list *new);
 t_list			*lstlast(t_list *lst);
